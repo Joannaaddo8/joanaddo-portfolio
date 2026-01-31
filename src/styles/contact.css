@@ -1,0 +1,41 @@
+.contact-container {
+  max-width: 700px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.contact-info p {
+  margin: 6px 0;
+}
+
+.contact-info a {
+  text-decoration: underline;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 8px;
+  font-size: 1rem;
+}
+
+.contact-form label {
+  font-weight: 500;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.contact-form button {
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+}

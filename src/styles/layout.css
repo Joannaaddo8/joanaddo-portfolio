@@ -1,0 +1,65 @@
+/* layout.css */
+
+.layout-root {
+  min-height: 100vh;          /* full screen */
+  display: flex;
+  flex-direction: column;     /* header on top, main grows */
+  background: #0b1220;        /* change to any background */
+  color: #e5e7eb;
+}
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 16px 32px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.site-logo {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+}
+
+.site-title {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.site-nav {
+  display: flex;
+  gap: 20px;
+}
+
+.site-nav a {
+  color: #e5e7eb;
+  text-decoration: none;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.site-nav a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.site-divider {
+  margin: 0;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* KEY PART: this fills remaining space */
+.site-content {
+  flex: 1;                   /* takes leftover height */
+  padding: 40px 32px;
+}

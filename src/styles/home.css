@@ -1,0 +1,66 @@
+.home-container {
+  min-height: calc(100vh - 120px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+/* ===== Hero ===== */
+.home-hero {
+  max-width: 900px;
+  text-align: center;
+}
+
+.home-hero h2 {
+  font-size: 2.4rem;
+  margin-bottom: 20px;
+}
+
+.home-intro {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+.home-subtext {
+  margin-bottom: 26px;
+}
+
+/* ===== Buttons ===== */
+.home-buttons {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.home-buttons button {
+  padding: 10px 22px;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+/* ===== Submission Section ===== */
+.home-submission-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.home-submission-card {
+  width: min(720px, 92%);
+  padding: 22px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  text-align: left;
+}
+
+.home-submission-card h3 {
+  margin-top: 0;
+  margin-bottom: 14px;
+}

@@ -1,0 +1,40 @@
+.about-container {
+  max-width: 800px;
+  margin: auto;
+  text-align: center;
+  padding: 20px;
+}
+
+.about-photo {
+  width: 200px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+/* CENTER ALL LIST CONTENT */
+.about-list {
+  list-style-position: inside;   /* centers bullets */
+  padding: 0;
+  margin: 12px auto 24px;
+  text-align: center;            /* centers text */
+}
+
+.about-list li {
+  margin: 8px 0;
+}
+
+/* Optional: make section headers breathe */
+.about-container h4 {
+  margin-top: 28px;
+  margin-bottom: 12px;
+}
+
+/* CTA styling */
+.about-cta {
+  margin-top: 22px;
+  font-weight: 500;
+}
+
+.about-cta a {
+  text-decoration: underline;
+}

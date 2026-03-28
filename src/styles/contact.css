@@ -1,41 +1,129 @@
+/* =========================
+   Contact Page
+   ========================= */
+
 .contact-container {
-  max-width: 700px;
-  margin: auto;
-  padding: 20px;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+/* Header */
+.contact-container h2 {
   text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.contact-subtext {
+  text-align: center;
+  opacity: 0.8;
+  margin-bottom: 1.5rem;
+}
+
+/* Contact Info */
+.contact-info {
+  text-align: center;
+  margin-bottom: 1.5rem;
 }
 
 .contact-info p {
   margin: 6px 0;
+  opacity: 0.9;
 }
 
 .contact-info a {
-  text-decoration: underline;
+  color: white;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.4);
 }
 
+.contact-info a:hover {
+  opacity: 0.8;
+}
+
+/* Form Card */
 .contact-form {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  margin-top: 20px;
+  gap: 1rem;
+
+  padding: 1.5rem;
+  border-radius: 16px;
+
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
+/* Labels */
+.contact-form label {
+  font-weight: 500;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+/* Inputs */
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  padding: 8px;
-  font-size: 1rem;
+  padding: 0.9rem 1rem;
+
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.15);
+
+  background: rgba(255,255,255,0.05);
+  color: white;
+
+  font-size: 0.95rem;
+  outline: none;
+  transition: border 0.2s ease, background 0.2s ease;
 }
 
-.contact-form label {
-  font-weight: 500;
-  display: block;
-  margin-bottom: 4px;
+/* Focus effect */
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.08);
 }
 
+/* Textarea */
+.contact-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Button */
 .contact-form button {
-  margin-top: 10px;
-  padding: 10px;
-  font-size: 1rem;
+  margin-top: 0.5rem;
+
+  padding: 0.9rem;
+  border-radius: 10px;
+
+  border: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+
+  background: white;
+  color: #111;
+
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.contact-form button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* Success Message */
+.contact-success {
+  margin-top: 1rem;
+  text-align: center;
+  color: #4caf50;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .contact-container {
+    padding: 1rem;
+  }
 }

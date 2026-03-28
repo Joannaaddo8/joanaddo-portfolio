@@ -1,10 +1,10 @@
 /* layout.css */
 
 .layout-root {
-  min-height: 100vh;          /* full screen */
+  min-height: 100vh;          
   display: flex;
-  flex-direction: column;     /* header on top, main grows */
-  background: #0b1220;        /* change to any background */
+  flex-direction: column;     
+  background: #0b1220;        
   color: #e5e7eb;
 }
 

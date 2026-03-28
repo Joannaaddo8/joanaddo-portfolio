@@ -4,7 +4,7 @@ import "../styles/layout.css";
 
 export default function Layout() {
   return (
-    <div className="layout-root">
+    <>
       <header className="site-header">
         <div className="header-left">
           <img src={logo} alt="Joanna Addo logo" className="site-logo" />
@@ -17,14 +17,16 @@ export default function Layout() {
           <Link to="/project">Projects</Link>
           <Link to="/services">Services</Link>
           <Link to="/contact">Contact</Link>
+          <Link to="/users">Users</Link>
         </nav>
       </header>
 
       <hr className="site-divider" />
 
+      {/* This is what renders each page */}
       <main className="site-content">
         <Outlet />
       </main>
-    </div>
+    </>
   );
 }

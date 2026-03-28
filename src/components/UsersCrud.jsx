@@ -1,30 +1,29 @@
 import { useEffect, useState } from "react";
 import {
-  getReferences,
-  createReference,
-  updateReference,
-  deleteReference,
-} from "../api/referenceApi";
+  getUsers,
+  createUser,
+  updateUser,
+  deleteUser,
+} from "../api/userApi";
 
-export default function Contact() {
-  const [references, setReferences] = useState([]);
+export default function UsersCrud() {
+  const [users, setUsers] = useState([]);
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
     email: "",
-    position: "",
-    company: "",
+    password: "",
   });
   const [editingId, setEditingId] = useState(null);
 
   useEffect(() => {
-    loadReferences();
+    loadUsers();
   }, []);
 
-  async function loadReferences() {
-    const data = await getReferences();
+  async function loadUsers() {
+    const data = await getUsers();
     if (data.success) {
-      setReferences(data.data);
+      setUsers(data.data);
     }
   }
 
@@ -40,35 +39,34 @@ export default function Contact() {
     e.preventDefault();
 
     if (editingId) {
-      const result = await updateReference(editingId, formData);
+      const result = await updateUser(editingId, formData);
       if (result.success) {
         resetForm();
-        loadReferences();
+        loadUsers();
       }
     } else {
-      const result = await createReference(formData);
+      const result = await createUser(formData);
       if (result.success) {
         resetForm();
-        loadReferences();
+        loadUsers();
       }
     }
   }
 
-  function handleEdit(reference) {
-    setEditingId(reference.id);
+  function handleEdit(user) {
+    setEditingId(user.id);
     setFormData({
-      firstname: reference.firstname || "",
-      lastname: reference.lastname || "",
-      email: reference.email || "",
-      position: reference.position || "",
-      company: reference.company || "",
+      firstname: user.firstname || "",
+      lastname: user.lastname || "",
+      email: user.email || "",
+      password: user.password || "",
     });
   }
 
   async function handleDelete(id) {
-    const result = await deleteReference(id);
+    const result = await deleteUser(id);
     if (result.success) {
-      loadReferences();
+      loadUsers();
     }
   }
 
@@ -77,15 +75,14 @@ export default function Contact() {
       firstname: "",
       lastname: "",
       email: "",
-      position: "",
-      company: "",
+      password: "",
     });
     setEditingId(null);
   }
 
   return (
     <section style={{ padding: "2rem" }}>
-      <h2>Manage Contacts</h2>
+      <h2>Manage Users</h2>
 
       <form onSubmit={handleSubmit} style={{ marginBottom: "2rem" }}>
         <input
@@ -119,27 +116,17 @@ export default function Contact() {
         <br /><br />
 
         <input
-          type="text"
-          name="position"
-          placeholder="Position"
-          value={formData.position}
-          onChange={handleChange}
-          required
-        />
-        <br /><br />
-
-        <input
-          type="text"
-          name="company"
-          placeholder="Company"
-          value={formData.company}
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={formData.password}
           onChange={handleChange}
           required
         />
         <br /><br />
 
         <button type="submit">
-          {editingId ? "Update Contact" : "Add Contact"}
+          {editingId ? "Update User" : "Add User"}
         </button>
 
         {editingId && (
@@ -152,14 +139,14 @@ export default function Contact() {
         )}
       </form>
 
-      <h3>Contact List</h3>
+      <h3>User List</h3>
 
-      {references.length === 0 ? (
-        <p>No contacts found.</p>
+      {users.length === 0 ? (
+        <p>No users found.</p>
       ) : (
-        references.map((reference) => (
+        users.map((user) => (
           <div
-            key={reference.id}
+            key={user.id}
             style={{
               border: "1px solid #ccc",
               padding: "1rem",
@@ -167,14 +154,12 @@ export default function Contact() {
             }}
           >
             <h4>
-              {reference.firstname} {reference.lastname}
+              {user.firstname} {user.lastname}
             </h4>
-            <p><strong>Email:</strong> {reference.email}</p>
-            <p><strong>Position:</strong> {reference.position}</p>
-            <p><strong>Company:</strong> {reference.company}</p>
+            <p><strong>Email:</strong> {user.email}</p>
 
-            <button onClick={() => handleEdit(reference)}>Edit</button>{" "}
-            <button onClick={() => handleDelete(reference.id)}>Delete</button>
+            <button onClick={() => handleEdit(user)}>Edit</button>{" "}
+            <button onClick={() => handleDelete(user.id)}>Delete</button>
           </div>
         ))
       )}

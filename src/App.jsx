@@ -3,9 +3,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./components/Home";
 import About from "./components/About";
-import Project from "./components/Project";
-import Services from "./components/Services";
+import ProjectCrud from "./components/ProjectCrud";
+import ServicesCrud from "./components/ServicesCrud";
 import Contact from "./components/Contact";
+import UsersCrud from "./components/UsersCrud";
 
 export default function App() {
   return (
@@ -15,9 +16,10 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
-          <Route path="project" element={<Project />} />
-          <Route path="services" element={<Services />} />
+          <Route path="project" element={<ProjectCrud />} />
+          <Route path="services" element={<ServicesCrud />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="users" element={<UsersCrud />} />
         </Route>
       </Routes>
     </BrowserRouter>

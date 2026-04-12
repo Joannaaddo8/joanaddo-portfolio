@@ -1,0 +1,100 @@
+/* =========================
+   USERS ADMIN (DASHBOARD)
+   Match Projects Layout
+   ========================= */
+
+.users-admin-page {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.users-admin-page h2 {
+  margin-bottom: 0.7rem;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.users-admin-subtext {
+  margin-bottom: 1.4rem;
+  opacity: 0.9;
+}
+
+/* FORM */
+
+.users-admin-form {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 28px;
+  padding: 1.25rem;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+}
+
+.users-admin-form input {
+  width: 100%;
+  padding: 0.95rem 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  color: white;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+/* BUTTONS */
+
+.users-admin-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.users-admin-actions button {
+  border: none;
+  border-radius: 10px;
+  padding: 0.82rem 1.05rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.users-admin-actions button:first-child {
+  background: white;
+  color: #111;
+}
+
+.users-admin-actions button:last-child {
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+}
+
+/* USER CARDS */
+
+.users-admin-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.users-admin-card {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 18px;
+  padding: 22px;
+  background: rgba(255, 255, 255, 0.025);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.14);
+  text-align: left;
+}
+
+.users-admin-card h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.5rem;
+}
+
+.users-admin-card p {
+  margin: 8px 0;
+  line-height: 1.6;
+}

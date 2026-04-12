@@ -1,32 +1,19 @@
-import { useEffect, useState } from "react";
-import {
-  getReferences,
-  createReference,
-  updateReference,
-  deleteReference,
-} from "../api/referenceApi";
+import { useState } from "react";
+import { createReference } from "../api/referenceApi";
+import "../styles/contact.css";
 
 export default function Contact() {
-  const [references, setReferences] = useState([]);
   const [formData, setFormData] = useState({
-    firstname: "",
-    lastname: "",
+    firstName: "",
+    lastName: "",
     email: "",
-    position: "",
-    company: "",
+    phone: "",
+    message: "",
   });
-  const [editingId, setEditingId] = useState(null);
 
-  useEffect(() => {
-    loadReferences();
-  }, []);
-
-  async function loadReferences() {
-    const data = await getReferences();
-    if (data.success) {
-      setReferences(data.data);
-    }
-  }
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -38,146 +25,117 @@ export default function Contact() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setError("");
+    setSubmitted(false);
+    setLoading(true);
 
-    if (editingId) {
-      const result = await updateReference(editingId, formData);
-      if (result.success) {
-        resetForm();
-        loadReferences();
-      }
-    } else {
+    try {
       const result = await createReference(formData);
+
       if (result.success) {
-        resetForm();
-        loadReferences();
+        setSubmitted(true);
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          message: "",
+        });
+      } else {
+        setError(result.message || "Failed to send message.");
       }
+    } catch (err) {
+      console.error("Contact submit error:", err);
+      setError("Something went wrong while sending your message.");
+    } finally {
+      setLoading(false);
     }
-  }
-
-  function handleEdit(reference) {
-    setEditingId(reference.id);
-    setFormData({
-      firstname: reference.firstname || "",
-      lastname: reference.lastname || "",
-      email: reference.email || "",
-      position: reference.position || "",
-      company: reference.company || "",
-    });
-  }
-
-  async function handleDelete(id) {
-    const result = await deleteReference(id);
-    if (result.success) {
-      loadReferences();
-    }
-  }
-
-  function resetForm() {
-    setFormData({
-      firstname: "",
-      lastname: "",
-      email: "",
-      position: "",
-      company: "",
-    });
-    setEditingId(null);
   }
 
   return (
-    <section style={{ padding: "2rem" }}>
-      <h2>Manage Contacts</h2>
+    <section className="contact-page">
+      <div className="contact-page__header">
+        <h2>Contact Me</h2>
+        <p>
+          Have a project, collaboration, or opportunity in mind? Send me a
+          message and I’ll get back to you.
+        </p>
+      </div>
 
-      <form onSubmit={handleSubmit} style={{ marginBottom: "2rem" }}>
-        <input
-          type="text"
-          name="firstname"
-          placeholder="First Name"
-          value={formData.firstname}
-          onChange={handleChange}
-          required
-        />
-        <br /><br />
+      <div className="contact-page__card">
+        <form onSubmit={handleSubmit} className="contact-page__form">
+          <div className="contact-page__row">
+            <input
+              type="text"
+              name="firstName"
+              placeholder="First Name"
+              value={formData.firstName}
+              onChange={handleChange}
+              required
+            />
 
-        <input
-          type="text"
-          name="lastname"
-          placeholder="Last Name"
-          value={formData.lastname}
-          onChange={handleChange}
-          required
-        />
-        <br /><br />
-
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-        <br /><br />
-
-        <input
-          type="text"
-          name="position"
-          placeholder="Position"
-          value={formData.position}
-          onChange={handleChange}
-          required
-        />
-        <br /><br />
-
-        <input
-          type="text"
-          name="company"
-          placeholder="Company"
-          value={formData.company}
-          onChange={handleChange}
-          required
-        />
-        <br /><br />
-
-        <button type="submit">
-          {editingId ? "Update Contact" : "Add Contact"}
-        </button>
-
-        {editingId && (
-          <>
-            {" "}
-            <button type="button" onClick={resetForm}>
-              Cancel Edit
-            </button>
-          </>
-        )}
-      </form>
-
-      <h3>Contact List</h3>
-
-      {references.length === 0 ? (
-        <p>No contacts found.</p>
-      ) : (
-        references.map((reference) => (
-          <div
-            key={reference.id}
-            style={{
-              border: "1px solid #ccc",
-              padding: "1rem",
-              marginBottom: "1rem",
-            }}
-          >
-            <h4>
-              {reference.firstname} {reference.lastname}
-            </h4>
-            <p><strong>Email:</strong> {reference.email}</p>
-            <p><strong>Position:</strong> {reference.position}</p>
-            <p><strong>Company:</strong> {reference.company}</p>
-
-            <button onClick={() => handleEdit(reference)}>Edit</button>{" "}
-            <button onClick={() => handleDelete(reference.id)}>Delete</button>
+            <input
+              type="text"
+              name="lastName"
+              placeholder="Last Name"
+              value={formData.lastName}
+              onChange={handleChange}
+              required
+            />
           </div>
-        ))
-      )}
+
+          <div className="contact-page__row">
+            <input
+              type="email"
+              name="email"
+              placeholder="Email Address"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+
+            <input
+              type="text"
+              name="phone"
+              placeholder="Phone Number (optional)"
+              value={formData.phone}
+              onChange={handleChange}
+            />
+          </div>
+
+          <textarea
+            name="message"
+            placeholder="Your Message"
+            value={formData.message}
+            onChange={handleChange}
+            required
+          />
+
+          <button
+            type="submit"
+            className="contact-page__button"
+            disabled={loading}
+          >
+            {loading ? "Sending..." : "Send Message"}
+          </button>
+        </form>
+
+        {error && (
+          <div className="contact-page__success">
+            <h3>Message Not Sent</h3>
+            <p>{error}</p>
+          </div>
+        )}
+
+        {submitted && (
+          <div className="contact-page__success">
+            <h3>Message Received</h3>
+            <p>
+              Thank you. Your message has been sent successfully.
+            </p>
+          </div>
+        )}
+      </div>
     </section>
   );
 }

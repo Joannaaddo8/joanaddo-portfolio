@@ -7,40 +7,41 @@ export default function Home() {
 
   return (
     <div className="home-container">
-      {/* ===== Hero Section ===== */}
       <section className="home-hero">
-        <h2>Welcome to My Portfolio</h2>
+        <span className="home-badge">Software Engineering • Full-Stack Development • AI Solutions</span>
+
+        <h2>Building Modern Software and Intelligent Digital Experiences</h2>
 
         <p className="home-intro">
-          I’m passionate about coding and enjoy solving real-world problems using
-          AI and software engineering, with a focus on making technology
-          affordable, accessible, controlled, and safe.
+          I design and develop full-stack web applications, backend systems, and
+          AI-powered solutions that solve real-world problems with clarity,
+          structure, and purpose.
         </p>
 
         <p className="home-subtext">
-          Explore my journey, projects, and professional background below.
+          From responsive frontend interfaces to scalable backend architecture, I
+          build technology that is functional, user-focused, and ready for real
+          use.
         </p>
 
         <div className="home-buttons">
-          <Link to="/about">
-            <button>Learn More About Me</button>
+          <Link to="/project">
+            <button className="home-btn home-btn--primary">View My Projects</button>
           </Link>
 
-          <Link to="/project">
-            <button>View My Projects</button>
+          <Link to="/about">
+            <button className="home-btn home-btn--secondary">Learn More About Me</button>
           </Link>
         </div>
       </section>
 
-      {/* ===== Message Confirmation Section (Rubric Requirement) ===== */}
       {submission && (
         <section className="home-submission-section">
           <div className="home-submission-card">
             <h3>Message Received ✅</h3>
 
             <p>
-              <strong>Name:</strong>{" "}
-              {submission.firstName} {submission.lastName}
+              <strong>Name:</strong> {submission.firstName} {submission.lastName}
             </p>
 
             {submission.phone && (

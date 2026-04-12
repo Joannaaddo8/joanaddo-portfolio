@@ -1,22 +1,22 @@
-/* layout.css */
-
 .layout-root {
-  min-height: 100vh;          
+  min-height: 100vh;
   display: flex;
-  flex-direction: column;     
-  background: #0b1220;        
+  flex-direction: column;
+  background: #0b1220; /* your original dark blue */
   color: #e5e7eb;
 }
+
+/* ===== HEADER ===== */
 
 .site-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   padding: 16px 32px;
   background: rgba(255, 255, 255, 0.06);
 }
 
+/* left side */
 .header-left {
   display: flex;
   align-items: center;
@@ -35,9 +35,13 @@
   font-weight: 700;
 }
 
+/* ===== NAV ===== */
+
 .site-nav {
   display: flex;
-  gap: 20px;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap; /* FIXES your nav breaking */
 }
 
 .site-nav a {
@@ -45,6 +49,7 @@
   text-decoration: none;
   font-weight: 600;
   opacity: 0.9;
+  padding: 6px 8px;
 }
 
 .site-nav a:hover {
@@ -52,14 +57,37 @@
   text-decoration: underline;
 }
 
+/* buttons (login/register/logout) */
+.site-nav__button {
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-weight: 600;
+  background: #1f2937;
+  color: white;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+
+.site-nav__button:hover {
+  background: #374151;
+}
+
+/* ===== DIVIDER ===== */
+
 .site-divider {
   margin: 0;
   border: none;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-/* KEY PART: this fills remaining space */
+/* ===== CONTENT ===== */
+
 .site-content {
-  flex: 1;                   /* takes leftover height */
+  flex: 1;
   padding: 40px 32px;
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
 }

@@ -1,11 +1,12 @@
 /* =========================
-   Services Page
+   Services Shared / Legacy
    ========================= */
 
 .services-container {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 12px 0;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
 }
 
 .services-intro {
@@ -29,60 +30,81 @@
   opacity: 0.9;
 }
 
+.services-display {
+  margin-top: 1.5rem;
+}
+
+.services-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.services-list {
+  list-style-position: inside;
+  padding: 0;
+  margin: 12px auto 24px;
+  text-align: center;
+  line-height: 1.7;
+}
+
+.services-list li {
+  margin: 12px 0;
+}
+
 /* =========================
-   Admin Form
+   Dashboard Services Admin
+   Slightly Reduced Front Width
    ========================= */
 
-.services-admin {
-  margin: 0 auto 2rem;
-  max-width: 800px;
-  padding: 1.25rem;
-  border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.03);
+.services-admin-page {
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0;
+  display: block;
 }
 
-.services-admin h2 {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
+.services-admin-page h2 {
+  margin: 0 0 18px 0;
+  font-size: 2rem;
+  font-weight: 700;
 }
 
-.services-cta {
-  margin-bottom: 1rem;
-  opacity: 0.85;
-  font-weight: 500;
-}
-
-.services-form {
+.services-admin-form {
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto 28px;
+  padding: 1.35rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  box-sizing: border-box;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
 }
 
-.services-form input,
-.services-form textarea {
+.services-admin-form input,
+.services-admin-form textarea {
   width: 100%;
+  display: block;
+  box-sizing: border-box;
   padding: 0.95rem 1rem;
-  border-radius: 12px;
+  border-radius: 14px;
   border: 1px solid rgba(255, 255, 255, 0.14);
   background: rgba(255, 255, 255, 0.04);
   color: white;
   font-size: 1rem;
-  box-sizing: border-box;
 }
 
-.services-form textarea {
-  min-height: 120px;
+.services-admin-form textarea {
+  min-height: 130px;
   resize: vertical;
 }
 
-.services-form input::placeholder,
-.services-form textarea::placeholder {
-  color: rgba(255, 255, 255, 0.55);
-}
-
-.services-form-actions,
-.service-card-actions {
+.services-admin-actions {
   display: flex;
   gap: 0.75rem;
   flex-wrap: wrap;
@@ -119,29 +141,30 @@
 }
 
 /* =========================
-   Service Cards
+   Admin Service Cards
    ========================= */
 
-.services-display {
-  margin-top: 1.5rem;
-}
-
-.services-cards {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
 .service-card {
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 12px;
-  padding: 16px;
-  background: rgba(0, 0, 0, 0.06);
+  width: 100%;
+  max-width: 980px;
+  margin: 20px auto 0;
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 18px;
+  padding: 22px;
+  background: rgba(255, 255, 255, 0.025);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.14);
   text-align: left;
 }
 
 .service-card h3 {
-  margin: 0 0 8px 0;
+  margin: 0 0 12px 0;
+  font-size: 1.6rem;
+}
+
+.service-card p {
+  margin: 10px 0;
+  line-height: 1.6;
 }
 
 .service-price {
@@ -154,24 +177,83 @@
   font-weight: 600;
 }
 
-.service-card p {
-  margin: 10px 0;
-  max-width: 900px;
-  line-height: 1.6;
-}
-
 .service-card-actions {
-  margin-top: 1rem;
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-.services-list {
-  list-style-position: inside;
-  padding: 0;
-  margin: 12px auto 24px;
+/* =========================
+   Public Services Page
+   Left Untouched
+   ========================= */
+
+.services-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 0 40px;
+}
+
+.services-page__header {
   text-align: center;
-  line-height: 1.7;
+  margin-bottom: 32px;
 }
 
-.services-list li {
-  margin: 12px 0;
+.services-page__header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.services-page__header p {
+  max-width: 900px;
+  margin: 0 auto;
+  line-height: 1.7;
+  font-size: 1rem;
+  opacity: 0.92;
+}
+
+.services-page__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.services-page__card {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 28px;
+  padding: 34px 36px;
+  background: rgba(255, 255, 255, 0.03);
+  text-align: left;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+}
+
+.services-page__card h3 {
+  margin: 0 0 16px 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.services-page__card p {
+  margin: 0 0 18px 0;
+  line-height: 1.7;
+  font-size: 1.08rem;
+}
+
+.services-page__price {
+  display: inline-block;
+  margin-bottom: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.services-page__empty {
+  text-align: center;
+  opacity: 0.85;
+  margin-top: 1rem;
+  font-size: 1.05rem;
 }

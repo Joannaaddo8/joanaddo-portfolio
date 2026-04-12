@@ -1,5 +1,3 @@
-import smartbudgetImg from "../assets/images/smartbudget.png";
-
 import { useEffect, useState } from "react";
 import {
   getProjects,
@@ -7,8 +5,9 @@ import {
   updateProject,
   deleteProject,
 } from "../api/projectApi";
-
 import "../styles/project.css";
+
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 export default function ProjectCrud() {
   const [projects, setProjects] = useState([]);
@@ -19,13 +18,10 @@ export default function ProjectCrud() {
     description: "",
     completion: "",
     technologies: "",
-    image: "",
+    image: null,
     link: "",
   });
 
-  // ===============================
-  // LOAD PROJECTS
-  // ===============================
   useEffect(() => {
     loadProjects();
   }, []);
@@ -33,6 +29,8 @@ export default function ProjectCrud() {
   async function loadProjects() {
     try {
       const res = await getProjects();
+      console.log("GET PROJECTS:", res);
+
       if (res.success) {
         setProjects(res.data);
       }
@@ -41,9 +39,6 @@ export default function ProjectCrud() {
     }
   }
 
-  // ===============================
-  // HANDLE INPUT CHANGE
-  // ===============================
   function handleChange(e) {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -52,36 +47,45 @@ export default function ProjectCrud() {
     }));
   }
 
-  // ===============================
-  // HANDLE SUBMIT (CREATE / UPDATE)
-  // ===============================
+  function handleFileChange(e) {
+    const file = e.target.files[0];
+    setFormData((prev) => ({
+      ...prev,
+      image: file || null,
+    }));
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
 
+    console.log("SUBMIT FIRED");
+    console.log("editingId:", editingId);
+    console.log("formData:", formData);
+
     try {
+      let res;
+
       if (editingId) {
-        // UPDATE
-        const res = await updateProject(editingId, formData);
-        if (res.success) {
-          resetForm();
-          loadProjects();
-        }
+        res = await updateProject(editingId, formData);
       } else {
-        // CREATE
-        const res = await createProject(formData);
-        if (res.success) {
-          resetForm();
-          loadProjects();
-        }
+        res = await createProject(formData);
+      }
+
+      console.log("PROJECT RESPONSE:", res);
+
+      if (res.success) {
+        resetForm();
+        loadProjects();
+        alert(editingId ? "Project updated successfully." : "Project added successfully.");
+      } else {
+        alert(res.message || "Project request failed.");
       }
     } catch (err) {
       console.error("Submit error:", err);
+      alert("Submit crashed. Check console.");
     }
   }
 
-  // ===============================
-  // EDIT PROJECT
-  // ===============================
   function handleEdit(project) {
     setEditingId(project.id);
 
@@ -92,30 +96,32 @@ export default function ProjectCrud() {
         ? project.completion.substring(0, 10)
         : "",
       technologies: project.technologies || "",
-      image: project.image || "",
+      image: null,
       link: project.link || "",
     });
 
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  // ===============================
-  // DELETE PROJECT
-  // ===============================
   async function handleDelete(id) {
+    console.log("DELETE FIRED:", id);
+
     try {
       const res = await deleteProject(id);
+      console.log("DELETE RESPONSE:", res);
+
       if (res.success) {
         loadProjects();
+        alert("Project deleted successfully.");
+      } else {
+        alert(res.message || "Delete failed.");
       }
     } catch (err) {
       console.error("Delete error:", err);
+      alert("Delete crashed. Check console.");
     }
   }
 
-  // ===============================
-  // RESET FORM
-  // ===============================
   function resetForm() {
     setEditingId(null);
     setFormData({
@@ -123,7 +129,7 @@ export default function ProjectCrud() {
       description: "",
       completion: "",
       technologies: "",
-      image: "",
+      image: null,
       link: "",
     });
   }
@@ -132,7 +138,6 @@ export default function ProjectCrud() {
     <section className="projects">
       <h2>Project Management</h2>
 
-      {/* ================= FORM ================= */}
       <form onSubmit={handleSubmit} className="projects-form">
         <input
           type="text"
@@ -168,11 +173,10 @@ export default function ProjectCrud() {
         />
 
         <input
-          type="text"
+          type="file"
           name="image"
-          placeholder="Image URL"
-          value={formData.image}
-          onChange={handleChange}
+          accept="image/*"
+          onChange={handleFileChange}
         />
 
         <input
@@ -194,7 +198,6 @@ export default function ProjectCrud() {
         )}
       </form>
 
-      {/* ================= PROJECT LIST ================= */}
       {projects.length === 0 ? (
         <p>No projects found.</p>
       ) : (
@@ -217,7 +220,15 @@ export default function ProjectCrud() {
             </p>
 
             {project.image && (
-              <img src={project.image} alt={project.title} width="200" />
+              <div className="project-card__gallery project-card__gallery--two">
+                <figure>
+                  <img
+                    src={`${BASE_URL}${project.image}`}
+                    alt={project.title}
+                    className="zoomable"
+                  />
+                </figure>
+              </div>
             )}
 
             {project.link && (
@@ -228,8 +239,12 @@ export default function ProjectCrud() {
               </p>
             )}
 
-            <button onClick={() => handleEdit(project)}>Edit</button>
-            <button onClick={() => handleDelete(project.id)}>Delete</button>
+            <button type="button" onClick={() => handleEdit(project)}>
+              Edit
+            </button>
+            <button type="button" onClick={() => handleDelete(project.id)}>
+              Delete
+            </button>
           </div>
         ))
       )}

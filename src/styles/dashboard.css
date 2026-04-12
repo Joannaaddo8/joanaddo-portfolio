@@ -1,0 +1,64 @@
+.dashboard-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 0 40px;
+}
+
+.dashboard-header {
+  margin-bottom: 24px;
+}
+
+.dashboard-header h2 {
+  margin: 0 0 12px 0;
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.dashboard-header p {
+  margin: 0;
+  font-size: 1.1rem;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+.dashboard-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.dashboard-tabs button {
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: #1f2937;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.dashboard-tabs button:hover {
+  background: #374151;
+}
+
+.dashboard-tabs button.active {
+  border: 2px solid white;
+}
+
+.dashboard-content {
+  width: 100%;
+}
+
+.dashboard-panel {
+  width: 100%;
+}
+
+/* force every crud section inside dashboard to behave the same */
+.dashboard-panel > section {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding-top: 0;
+}

@@ -80,97 +80,85 @@ export default function ServicesCrud() {
   }
 
   return (
-    <section className="services-container">
-      <div className="services-intro">
-        <h2>My Services</h2>
-        <p>
-          Professional services powered by real backend data from MongoDB.
-        </p>
-      </div>
+    <section className="services-admin-page">
+      <h2>Service Management</h2>
 
-      <div className="services-admin">
-        <h2>{editingId ? "Edit Service" : "Manage Services"}</h2>
-        <p className="services-cta">
-          Add, update, and manage the services displayed in your portfolio.
-        </p>
+      <form onSubmit={handleSubmit} className="services-admin-form">
+        <input
+          type="text"
+          name="title"
+          placeholder="Service Title"
+          value={formData.title}
+          onChange={handleChange}
+          required
+        />
 
-        <form onSubmit={handleSubmit} className="services-form">
-          <input
-            type="text"
-            name="title"
-            placeholder="Service Title"
-            value={formData.title}
-            onChange={handleChange}
-            required
-          />
+        <textarea
+          name="description"
+          placeholder="Description"
+          value={formData.description}
+          onChange={handleChange}
+          required
+        />
 
-          <textarea
-            name="description"
-            placeholder="Description"
-            value={formData.description}
-            onChange={handleChange}
-            required
-          />
+        <input
+          type="number"
+          name="price"
+          placeholder="Price"
+          value={formData.price}
+          onChange={handleChange}
+          required
+        />
 
-          <input
-            type="number"
-            name="price"
-            placeholder="Price"
-            value={formData.price}
-            onChange={handleChange}
-            required
-          />
+        <div className="services-admin-actions">
+          <button type="submit" className="service-btn">
+            {editingId ? "Update Service" : "Add Service"}
+          </button>
 
-          <div className="services-form-actions">
-            <button type="submit" className="service-btn">
-              {editingId ? "Update Service" : "Add Service"}
+          {editingId && (
+            <button
+              type="button"
+              className="service-btn-secondary"
+              onClick={resetForm}
+            >
+              Cancel
             </button>
+          )}
+        </div>
+      </form>
 
-            {editingId && (
+      {services.length === 0 ? (
+        <p>No services found.</p>
+      ) : (
+        services.map((service) => (
+          <article key={service.id} className="service-card">
+            <h3>{service.title}</h3>
+
+            {service.price !== undefined && service.price !== "" && (
+              <p className="service-price">${service.price}</p>
+            )}
+
+            <p>{service.description}</p>
+
+            <div className="service-card-actions">
               <button
                 type="button"
                 className="service-btn-secondary"
-                onClick={resetForm}
+                onClick={() => handleEdit(service)}
               >
-                Cancel Edit
+                Edit
               </button>
-            )}
-          </div>
-        </form>
-      </div>
-
-      <div className="services-display">
-        {services.length === 0 ? (
-          <p className="services-cta">No services available yet.</p>
-        ) : (
-          <div className="services-cards">
-            {services.map((service) => (
-              <article key={service.id} className="service-card">
-                <h3>{service.title}</h3>
-                <span className="service-price">
-                  ${service.price ?? "N/A"}
-                </span>
-                <p>{service.description}</p>
-
-                <div className="service-card-actions">
-                  <button
-                    className="service-btn-secondary"
-                    onClick={() => handleEdit(service)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="service-btn-danger"
-                    onClick={() => handleDelete(service.id)}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </article>
-            ))}
-          </div>
-        )}
-      </div>
+              <button
+                type="button"
+                className="service-btn-danger"
+                onClick={() => handleDelete(service.id)}
+              >
+                Delete
+              </button>
+            </div>
+          </article>
+        ))
+      )}
     </section>
   );
 }

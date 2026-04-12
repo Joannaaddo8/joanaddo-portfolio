@@ -6,6 +6,8 @@ import About from "./components/About";
 import Project from "./components/Project";
 import Services from "./components/Services";
 import Contact from "./components/Contact";
+import Login from "./components/Login";
+
 
 export default function MainRouter() {
   return (
@@ -18,6 +20,7 @@ export default function MainRouter() {
         <Route path="/project" element={<Project />} />
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/login" element={<Login />} />
 
         {/* catches wrong URLs */}
         <Route path="*" element={<Home />} />

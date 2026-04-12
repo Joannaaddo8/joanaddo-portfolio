@@ -1,39 +1,52 @@
+import { useEffect, useState } from "react";
+import { getServices } from "../api/serviceApi";
 import "../styles/services.css";
 
 export default function Services() {
+  const [services, setServices] = useState([]);
+
+  useEffect(() => {
+    loadServices();
+  }, []);
+
+  async function loadServices() {
+    try {
+      const res = await getServices();
+      if (res.success) {
+        setServices(res.data);
+      }
+    } catch (err) {
+      console.error("Error loading services:", err);
+    }
+  }
+
   return (
-    <section className="services">
-      <header className="services__header">
-        <h2>Services</h2>
-        <p>Here are a few services I can offer based on my current skills.</p>
+    <section className="services-page">
+      <header className="services-page__header">
+        <h2>My Services</h2>
+        <p>
+          A selection of services I offer across software development,
+          technical problem-solving, and digital solution building.
+        </p>
       </header>
 
-      <ul className="services__list">
-        <li>
-          <h3>Web Development</h3>
-          <p>Responsive websites using React, HTML, CSS, and JavaScript.</p>
-        </li>
+      {services.length === 0 ? (
+        <p className="services-page__empty">No services available yet.</p>
+      ) : (
+        <div className="services-page__grid">
+          {services.map((service) => (
+            <article key={service.id} className="services-page__card">
+              <h3>{service.title}</h3>
 
-        <li>
-          <h3>Desktop Applications</h3>
-          <p>Python (Tkinter) and C# WinForms applications with solid UX.</p>
-        </li>
+              {service.price !== undefined && service.price !== "" && (
+                <p className="services-page__price">${service.price}</p>
+              )}
 
-        <li>
-          <h3>API Integration</h3>
-          <p>Connecting apps to REST APIs with validation and error handling.</p>
-        </li>
-
-        <li>
-          <h3>Requirements & Documentation</h3>
-          <p>SRS writing, use cases, UML diagrams, and traceability support.</p>
-        </li>
-
-        <li>
-          <h3>Testing Mindset</h3>
-          <p>Test planning, edge cases, and quality checks (ISTQB CTFL).</p>
-        </li>
-      </ul>
+              <p>{service.description}</p>
+            </article>
+          ))}
+        </div>
+      )}
     </section>
   );
 }
